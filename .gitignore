@@ -205,3 +205,8 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+#As the raw_launch_data.json file is too large to have on github i converted it to a zip file and built in this gitignore function so that 
+#it doesn't upload when you push to origin
+
+raw_data/raw_launch_data.json
