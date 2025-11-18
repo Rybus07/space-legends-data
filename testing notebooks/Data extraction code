@@ -1,0 +1,5 @@
+#Using the webscrapping approach
+import bs4
+html_text = urllib.request.urlopen("https://nextspaceflight.com/").read()
+
+
