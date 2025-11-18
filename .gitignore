@@ -210,3 +210,5 @@ __marimo__/
 #it doesn't upload when you push to origin
 
 raw_data/raw_launch_data.json
+
+.DS_Store
