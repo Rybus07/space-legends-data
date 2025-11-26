@@ -138,27 +138,6 @@ The program consists of three main phases:
 
 **Important:** Update file paths in each notebook to match your directory structure before running. <mark>(again, ideally the user should not have to do this - update this text accordingly once we've made this change)</mark>
 
-```
-
----
-
-### **4. Submission Zip File Structure:**
-```
-project_submission.zip
-├── data/
-│   ├── raw_baseline_launches_Group7.json
-│   ├── clean_rocket_data.tsv
-│   ├── clean_launch_data.tsv
-│   ├── clean_mission_data.tsv
-│   └── merged_launch_data.tsv
-├── notebooks/
-│   ├── Space_Launch_Acquisition_Pagination.ipynb
-│   ├── Data_extraction_rocket.ipynb
-│   ├── DSCI_511_Launch_parameters.ipynb
-│   ├── Data_Extraction_Mission_parameters.ipynb
-│   └── Merge_3_Cleaned_DataFrames.ipynb
-└── README.md
-
 ## Challenges, Limitations, and Alternatives
 
 The final dataset contains nulls in <mark>#</mark> out of <mark>#</mark> columns; these are items that were missing in the original API calls to Launch Library 2. A potential approach that we explored to filling some of these null values was to web scrape for this information from Wikipedia or the [Next Spaceflight](https://nextspaceflight.com/launches/) website. <mark>(add additional information about what we accomplished here, where to find relevant notebook)</mark>
