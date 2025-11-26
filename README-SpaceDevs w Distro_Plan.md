@@ -34,7 +34,7 @@ print(f"Attributes: {len(df.columns)}")
 ```
 
 ### Dataset Contents <mark>(add which folder each is stored in)</mark>
-- **merged_launch_data.tsv** - Complete dataset <mark>(7,333 launches, 39 attributes) (check this once finalized)</mark>
+- **merged_launch_data.tsv** - Complete dataset <mark>(7,336 launches, 39 attributes) (check this once finalized)</mark>
 - **clean_rocket_data.tsv** - Rocket specifications (15 attributes)
 - **clean_launch_data.tsv** - Launch details (16 attributes)
 - **clean_mission_data.tsv** - Mission parameters (10 attributes)
@@ -47,18 +47,21 @@ Quick statistics about the collected data:
 
 | Metric | Value |
 |--------|-------|
-| Total Launches | 7,333 |
-| Time Span | 1957-2024 |
+| Total Launches | 7,336 |
+| Time Span | 1957-2025 |
 | Countries | 47 |
 | Unique Rockets | 450+ |
 | Total Attributes | 39 |
-| File Size | 2.1 MB |
+| File Size | 4.6 MB |
 
 ### Reproducing Our Collection
 All collection and cleaning code is provided in this repository (see **Getting Started** for more detailed instructions):
 1. Run `Space_Launch_Acquisition_Pagination.ipynb` to collect data
 2. Run individual cleaning notebooks for each parameter set
-3. Run `Merge_3_Cleaned_DataFrames.ipynb` to integrate
+  * `Rocket_Parameters_Extraction.ipynb` - Extracts rocket parameters
+  * `Launch_Parameters_Extraction.ipynb` - Extracts launch parameters
+  * `Mission_Parameters_Extraction.ipynb` - Extracts mission parameters
+4. Run `Merge_3_Cleaned_DataFrames.ipynb` to integrate
 
 **Note:** Full collection takes ~5-6 hours due to API rate limiting (15 requests/hour, with maximum of 100 launches/request)
 
@@ -119,15 +122,14 @@ The program consists of three main phases:
 **Phase 1: Data Collection**
 * Open `Space_Launch_Acquisition_Pagination.ipynb` in `Data Acquisition` folder
 * Set TEST_MODE flag to False for full collection (5-6 hours due to rate limiting)
-* Enter collector_name for metadata of the collection and the output filename
 * Run `Space_Launch_Acquisition_Pagination.ipynb` to collect raw launch data from API (note: Space Devs Launch Library 2 API does not require an API Access Key)
-* Output: `raw_baseline_launches_[collector_name].json`
+* Output: `raw_baseline_launches_Group7.json`
 
 **Phase 2: Data Cleaning**
 * Run cleaning notebooks for each data category, located in `Data Cleaning and Merge` folder:
-  * `Data extraction - rocket.ipynb` - Extracts rocket parameters
-  * `DSCI_511_Launch_parameters.ipynb` - Extracts launch parameters <mark>(should rename to match convention of others)</mark>
-  * `Data Extraction - Mission parameters.ipynb` - Extracts mission parameters
+  * `Rocket_Parameters_Extraction.ipynb` - Extracts rocket parameters
+  * `Launch_Parameters_Extraction.ipynb` - Extracts launch parameters
+  * `Mission_Parameters_Extraction.ipynb` - Extracts mission parameters
 * Output: Three TSV files (`clean_rocket_data.tsv`, `clean_launch_data.tsv`, `clean_mission_data.tsv`) <mark>(do we want to also include these in the data extraction folder?)</mark>
 
 **Phase 3: Data Merging**
@@ -135,6 +137,27 @@ The program consists of three main phases:
 * Output: `merged_launch_data.tsv` - Final dataset ready for analysis
 
 **Important:** Update file paths in each notebook to match your directory structure before running. <mark>(again, ideally the user should not have to do this - update this text accordingly once we've made this change)</mark>
+
+```
+
+---
+
+### **4. Submission Zip File Structure:**
+```
+project_submission.zip
+├── data/
+│   ├── raw_baseline_launches_Group7.json
+│   ├── clean_rocket_data.tsv
+│   ├── clean_launch_data.tsv
+│   ├── clean_mission_data.tsv
+│   └── merged_launch_data.tsv
+├── notebooks/
+│   ├── Space_Launch_Acquisition_Pagination.ipynb
+│   ├── Data_extraction_rocket.ipynb
+│   ├── DSCI_511_Launch_parameters.ipynb
+│   ├── Data_Extraction_Mission_parameters.ipynb
+│   └── Merge_3_Cleaned_DataFrames.ipynb
+└── README.md
 
 ## Challenges, Limitations, and Alternatives
 
@@ -170,7 +193,7 @@ DSCI 511 Project Group 7
 
 * 1.0 (November 2025)
     * Initial release - Complete data collection and preprocessing pipeline
-    * 7,333 <mark>(check against final)</mark> launches collected and cleaned
+    * 7,336 <mark>(check against final)</mark> launches collected and cleaned
     * Three-way merge functionality implemented
 
 ## License
