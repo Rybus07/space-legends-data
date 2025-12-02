@@ -21,6 +21,7 @@ Our dataset uses the **Launch Library 2 API**, which provides public space launc
 ### How to Use This Dataset
 
 **Load the data:**
+<mark>Make sure this works with zip file for final dataset</mark>
 ```python
 import pandas as pd
 df = pd.read_csv('data/merged_launch_data.tsv', sep='\t')
@@ -40,6 +41,8 @@ print(f"Attributes: {len(df.columns)}")
 - **clean_mission_data.tsv** - Mission parameters (10 attributes)
 
 The data dictionary <mark>(add location/more detail once this is finished)</mark> contains detailed information about each column in `merged_launch_data.tsv`, including data type and units when applicable.
+
+<mark>Add note that more information/figures about the final dataset, as well as code to interact with it is available in the merge Jupyter notebook</mark>
 
 ### Dataset Overview <mark>(update once dataset finalized)</mark>
 
@@ -164,7 +167,7 @@ The final dataset contains nulls in <mark>#</mark> out of <mark>#</mark> columns
 
 An early limitation we faced in this project was the rate limit of 15 calls/hour from the Launch Library 2 API. We ultimately decided to utilize pagination and a sleep timer to acquire the entire dataset over the span of 5-6 hours, as shown in `Space_Launch_Acquisition_Pagination.ipynb` in the `Data Acquisition` folder. However, we also considered filtering by time to make the API calls, so that the user could, e.g. acquire all the launches for a single year at once. The code developed for this approach can be found under `Testing Notebooks` in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`. <mark>Add anything additional we want to say about filtering/API calls here.</mark>
 
-<mark>Add any additional challenges/limitations here</mark>
+<mark>Add any additional challenges/limitations here; make sure to revisit what we thought the dataset development would take as compared to the actual work involved and obstacles encountered</mark>
 
 ## Help
 
