@@ -4,7 +4,7 @@ Data acquisition and preprocessing pipeline for collecting historical rocket lau
 
 ## Description
 
-This project acquires and pre-processes comprehensive historical data on rocket launches using the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records spanning from 1957 to the present with code found in the `Data Acquisition` folder, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member cleaned a specific subset of parameters, which were then merged into a unified dataset (with code found in the `Data Cleaning and Merge` folder). The final dataset <mark>(add where this is located when we have it)</mark> is a TSV that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. The data dictionary <mark>(add where this is located when we have it)</mark> specifies more details about each column in the TSV.
+This project acquires and pre-processes comprehensive historical data on rocket launches using the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records spanning from 1957 to the present with code found in the 01_Acquisition.ipynb, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member cleaned a specific subset of parameters, which were then merged into a unified dataset (with code found in the `Production Code` folder). The final dataset <mark>(add where this is located when we have it)</mark> is a TSV that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. The data dictionary <mark>(add where this is located when we have it)</mark> specifies more details about each column in the TSV.
 
 ## Distribution & Access
 
@@ -24,7 +24,7 @@ Our dataset uses the **Launch Library 2 API**, which provides public space launc
 <mark>Make sure this works with zip file for final dataset</mark>
 ```python
 import pandas as pd
-df = pd.read_csv('data/merged_launch_data.tsv', sep='\t')
+df = pd.read_csv('data/merged_data.tsv', sep='\t')
 ```
 
 **Quick overview:**
@@ -35,7 +35,7 @@ print(f"Attributes: {len(df.columns)}")
 ```
 
 ### Dataset Contents <mark>(add which folder each is stored in)</mark>
-- **merged_launch_data.tsv** - Complete dataset <mark>(7,336 launches, 39 attributes) (check this once finalized)</mark>
+- **merged_data.tsv** - Complete dataset <mark>(7,336 launches, 39 attributes) (check this once finalized)</mark>
 - **clean_rocket_data.tsv** - Rocket specifications (15 attributes)
 - **clean_launch_data.tsv** - Launch details (16 attributes)
 - **clean_mission_data.tsv** - Mission parameters (10 attributes)
@@ -123,49 +123,58 @@ drive.mount('/content/drive')
 The project consists of three main phases:
 
 **Phase 1: Data Collection**
-* Open `Space_Launch_Acquisition_Pagination.ipynb` in `Data Acquisition` folder
+* Open `01_Acquisition.ipynb` in `Production Code` folder
 * Set TEST_MODE flag to False for full collection (5-6 hours due to rate limiting)
 * Run notebook to collect raw launch data from API
 * Note: Space Devs Launch Library 2 API does not require an API key
 * Output: `raw_baseline_launches_Group7.json` saved to `data/` folder
 
 **Phase 2: Data Cleaning**
-* Open cleaning notebooks in `Data Cleaning and Merge` folder:
-  * `Rocket_Parameters_Extraction.ipynb` - Extracts rocket parameters
-  * `Launch_Parameters_Extraction.ipynb` - Extracts launch parameters
-  * `Mission_Parameters_Extraction.ipynb` - Extracts mission parameters
+* Open cleaning notebooks in `Production Code` folder:
+  * `02a_Rocket_Extraction.ipynb` - Extracts rocket parameters
+  * `02b_Launch_Extraction.ipynb` - Extracts launch parameters
+  * `02c_Mission_Extraction.ipynb` - Extracts mission parameters
 * Run each notebook to generate cleaned parameter files
-* Output: Three TSV files (`clean_rocket_data.tsv`, `clean_launch_data.tsv`, `clean_mission_data.tsv`) saved to `data/` folder
+* Output: Three TSV files (`clean_rocket_data.tsv`, `clean_launch_data.tsv`, `clean_mission_data.tsv`) saved to `data/cleaned data` folder
 
 **Phase 3: Data Merging**
-* In `Data Cleaning and Merge` folder, run `Merge_3_Cleaned_DataFrames.ipynb` to combine all cleaned data
-* Output: `merged_launch_data.tsv` saved to `data/` folder - Final dataset ready for analysis
+* In `Production Code` folder, run `03_Merge.ipynb` to combine all cleaned data
+* Output: `merged_data.tsv` saved to `data/cleaned` folder - Final dataset ready for analysis
 
 **Important:** Update file paths in each notebook to match your directory structure before running. <mark>(again, ideally the user should not have to do this - update this text accordingly once we've made this change)</mark>
 
-### **4. Submission Zip File Structure:**
+### **4. GitHub File Structure:**
 ```
-project_submission.zip
+space-legends-data/
+├── Production Code/
+│   ├── 01_Acquisition.ipynb
+│   ├── 02a_Rocket_Extraction.ipynb
+│   ├── 02b_Launch_Extraction.ipynb
+│   ├── 02c_Mission_Extraction.ipynb
+│   └── 03_Merge.ipynb
+├── Project materials/
+│   ├── Presentation.pdf
+│   ├── Project_Proposal.ipynb
+│   └── Data_Dictionary
 ├── data/
-│   ├── raw_baseline_launches_Group7.json
-│   ├── clean_rocket_data.tsv
-│   ├── clean_launch_data.tsv
-│   ├── clean_mission_data.tsv
-│   └── merged_launch_data.tsv
-├── Data Acquisition/
-│   └── Space_Launch_Acquisition_Pagination.ipynb
-├── Data Cleaning and Merge/
-│   ├── Rocket_Parameters_Extraction.ipynb
-│   ├── Launch_Parameters_Extraction.ipynb
-│   ├── Mission_Parameters_Extraction.ipynb
-│   └── Merge_3_Cleaned_DataFrames.ipynb
-└── README.md
+│   ├── cleaned data/
+│   │   ├── clean_rocket_data.tsv
+│   │   ├── clean_launch_data.tsv
+│   │   └── clean_mission_data.tsv
+│   ├── raw data/
+│   │   └── raw_baseline_launches_Group7.json.zip
+│   └── merged_data.tsv
+├── testing notebooks/
+│   └── [various testing notebooks]
+├── .gitignore
+├── README.md
+└── requirements.txt
 ```
 ## Challenges, Limitations, and Alternatives
 
 The final dataset contains nulls in <mark>#</mark> out of <mark>#</mark> columns; these are items that were missing in the original API calls to Launch Library 2. A potential approach that we explored to filling some of these null values was to web scrape for this information from Wikipedia or the [Next Spaceflight](https://nextspaceflight.com/launches/) website. <mark>(add additional information about what we accomplished here, where to find relevant notebook)</mark>
 
-An early limitation we faced in this project was the rate limit of 15 calls/hour from the Launch Library 2 API. We ultimately decided to utilize pagination and a sleep timer to acquire the entire dataset over the span of 5-6 hours, as shown in `Space_Launch_Acquisition_Pagination.ipynb` in the `Data Acquisition` folder. However, we also considered filtering by time to make the API calls, so that the user could, e.g. acquire all the launches for a single year at once. The code developed for this approach can be found under `Testing Notebooks` in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`. <mark>Add anything additional we want to say about filtering/API calls here.</mark>
+An early limitation we faced in this project was the rate limit of 15 calls/hour from the Launch Library 2 API. We ultimately decided to utilize pagination and a sleep timer to acquire the entire dataset over the span of 5-6 hours, as shown in `01_Acquisition.ipynb`. However, we also considered filtering by time to make the API calls, so that the user could, e.g. acquire all the launches for a single year at once. The code developed for this approach can be found under `Testing Notebooks` in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`. <mark>Add anything additional we want to say about filtering/API calls here.</mark>
 
 <mark>Add any additional challenges/limitations here; make sure to revisit what we thought the dataset development would take as compared to the actual work involved and obstacles encountered</mark>
 
