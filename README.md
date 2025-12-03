@@ -4,7 +4,7 @@ Data acquisition and preprocessing pipeline for collecting historical rocket lau
 
 ## Description
 
-This project acquires and pre-processes comprehensive historical data on rocket launches using the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records spanning from 1957 to the present with code found in the 01_Acquisition.ipynb, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member cleaned a specific subset of parameters, which were then merged into a unified dataset (with code found in the `Production Code` folder). The final dataset <mark>(add where this is located when we have it)</mark> is a TSV that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. The data dictionary <mark>(add where this is located when we have it)</mark> specifies more details about each column in the TSV.
+This project acquires and pre-processes comprehensive historical data on rocket launches using the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records spanning from 1957 to the present with code found in `01_Acquisition.ipynb`, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member cleaned a specific subset of parameters, which were then merged into a unified dataset (with code found in the `Production Code` folder). The final dataset (`merged_data.tsv` within the `data/cleaned data` folder) is a TSV that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. The data dictionary <mark>(add where this is located when we have it)</mark> specifies more details about each column in the TSV.
 
 ## Distribution & Access
 
@@ -34,17 +34,20 @@ print(f"Date range: {df['Launch Date'].min()} to {df['Launch Date'].max()}")
 print(f"Attributes: {len(df.columns)}")
 ```
 
-### Dataset Contents <mark>(add which folder each is stored in)</mark>
-- **merged_data.tsv** - Complete dataset <mark>(7,336 launches, 39 attributes) (check this once finalized)</mark>
+### Dataset Contents
+
+Within `data/cleaned data` folder:
+
+- **merged_data.tsv** - Complete dataset (7,336 launches, 39 attributes)
 - **clean_rocket_data.tsv** - Rocket specifications (15 attributes)
 - **clean_launch_data.tsv** - Launch details (16 attributes)
 - **clean_mission_data.tsv** - Mission parameters (10 attributes)
 
 The data dictionary <mark>(add location/more detail once this is finished)</mark> contains detailed information about each column in `merged_launch_data.tsv`, including data type and units when applicable.
 
-<mark>Add note that more information/figures about the final dataset, as well as code to interact with it is available in the merge Jupyter notebook</mark>
+More information, tables, figures, and code to interact with the final dataset are available in `Production Code/03_Merge/ipynb`.
 
-### Dataset Overview <mark>(update once dataset finalized)</mark>
+### Dataset Overview
 
 Quick statistics about the collected data:
 
@@ -58,13 +61,13 @@ Quick statistics about the collected data:
 | File Size | 4.6 MB |
 
 ### Reproducing Our Collection
-All collection and cleaning code is provided in this repository (see **Getting Started** for more detailed instructions):
-1. Run `Space_Launch_Acquisition_Pagination.ipynb` to collect data
-2. Run individual cleaning notebooks for each parameter set
-  * `Rocket_Parameters_Extraction.ipynb` - Extracts rocket parameters
-  * `Launch_Parameters_Extraction.ipynb` - Extracts launch parameters
-  * `Mission_Parameters_Extraction.ipynb` - Extracts mission parameters
-4. Run `Merge_3_Cleaned_DataFrames.ipynb` to integrate
+All collection and cleaning code is provided in this repository in the `Production Code` folder (see **Getting Started** for more detailed instructions):
+1. Run `01_Acquisition.ipynb` to collect data
+2. Run individual cleaning notebooks for each parameter set:
+  * `02a_Rocket_Extraction.ipynb` - Extracts rocket parameters
+  * `02b_Launch_Extraction.ipynb` - Extracts launch parameters
+  * `02c_Mission_Extraction.ipynb` - Extracts mission parameters
+4. Run `03_Merge.ipynb` to integrate
 
 **Note:** Full collection takes ~5-6 hours due to API rate limiting (15 requests/hour, with a maximum of 100 launches/request)
 
@@ -116,7 +119,7 @@ from google.colab import drive
 drive.mount('/content/drive')
 ```
 
-4. If needed, update file paths in notebooks to match your directory structure <mark>(was specified in class that everything should be able to be run as-is without updating file paths or moving folders, so we should make sure that we set things up that way and note that here)</mark>
+4. All code should be able to run locally in-place without rearranging directory structure. If running in Google Colab or if a dfifferent directory organization is desired, update code and file pathing as needed.
 
 ### Executing Program
 
@@ -140,8 +143,6 @@ The project consists of three main phases:
 **Phase 3: Data Merging**
 * In `Production Code` folder, run `03_Merge.ipynb` to combine all cleaned data
 * Output: `merged_data.tsv` saved to `data/cleaned` folder - Final dataset ready for analysis
-
-**Important:** Update file paths in each notebook to match your directory structure before running. <mark>(again, ideally the user should not have to do this - update this text accordingly once we've made this change)</mark>
 
 ### **4. GitHub File Structure:**
 ```
@@ -172,7 +173,7 @@ space-legends-data/
 ```
 ## Challenges, Limitations, and Alternatives
 
-The final dataset contains nulls in <mark>#</mark> out of <mark>#</mark> columns; these are items that were missing in the original API calls to Launch Library 2. A potential approach that we explored to filling some of these null values was to web scrape for this information from Wikipedia or the [Next Spaceflight](https://nextspaceflight.com/launches/) website. <mark>(add additional information about what we accomplished here, where to find relevant notebook)</mark>
+The final dataset contains nulls in 21 out of 39 columns; these are items that were missing in the original API calls to Launch Library 2. A potential approach that we explored to filling some of these null values was to web scrape for this information from Wikipedia or the [Next Spaceflight](https://nextspaceflight.com/launches/) website. <mark>(add additional information about what we accomplished here, where to find relevant testing notebooks)</mark>
 
 An early limitation we faced in this project was the rate limit of 15 calls/hour from the Launch Library 2 API. We ultimately decided to utilize pagination and a sleep timer to acquire the entire dataset over the span of 5-6 hours, as shown in `01_Acquisition.ipynb`. However, we also considered filtering by time to make the API calls, so that the user could, e.g. acquire all the launches for a single year at once. The code developed for this approach can be found under `Testing Notebooks` in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`. <mark>Add anything additional we want to say about filtering/API calls here.</mark>
 
@@ -204,7 +205,7 @@ DSCI 511 Project Group 7
 
 * 1.0 (November 2025)
     * Initial release - Complete data collection and preprocessing pipeline
-    * 7,336 <mark>(check against final)</mark> launches collected and cleaned
+    * 7,336 launches collected and cleaned
     * Three-way merge functionality implemented
 
 ## License
