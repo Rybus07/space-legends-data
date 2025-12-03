@@ -21,10 +21,12 @@ Our dataset uses the **Launch Library 2 API**, which provides public space launc
 ### How to Use This Dataset
 
 **Load the data:**
-<mark>Make sure this works with zip file for final dataset</mark>
+
+Adjust file pathing as appropriate for your workflow; for all code included in this repository, no adjustments to file pathing should be required.
+
 ```python
 import pandas as pd
-df = pd.read_csv('data/merged_data.tsv', sep='\t')
+df = pd.read_csv('data/cleaned data/merged_data.tsv', sep='\t')
 ```
 
 **Quick overview:**
@@ -64,19 +66,20 @@ Quick statistics about the collected data:
 All collection and cleaning code is provided in this repository in the `Production Code` folder (see **Getting Started** for more detailed instructions):
 1. Run `01_Acquisition.ipynb` to collect data
 2. Run individual cleaning notebooks for each parameter set:
-  * `02a_Rocket_Extraction.ipynb` - Extracts rocket parameters
-  * `02b_Launch_Extraction.ipynb` - Extracts launch parameters
-  * `02c_Mission_Extraction.ipynb` - Extracts mission parameters
+    * `02a_Rocket_Extraction.ipynb` - Extracts rocket parameters
+    * `02b_Launch_Extraction.ipynb` - Extracts launch parameters
+    * `02c_Mission_Extraction.ipynb` - Extracts mission parameters
 4. Run `03_Merge.ipynb` to integrate
 
 **Note:** Full collection takes ~5-6 hours due to API rate limiting (15 requests/hour, with a maximum of 100 launches/request)
 
 ### Extending the Dataset
-To collect launches since our last update: <mark>(do we want to add something that looks at the date of the last request?)</mark>
+To collect recent launches that may have occured since our last update: 
+
 ```python
 import requests
 
-# Get latest launches
+# Get 100 latest launches
 url = "https://ll.thespacedevs.com/2.2.0/launch/?limit=100"
 response = requests.get(url)
 new_data = response.json()['results']
