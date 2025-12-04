@@ -1,3 +1,7 @@
+# Large JSON files
+data/raw data/*.json
+data/raw data/raw_baseline_launches_Group7.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
