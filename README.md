@@ -164,10 +164,10 @@ space-legends-data/
 │   ├── cleaned data/
 │   │   ├── clean_rocket_data.tsv
 │   │   ├── clean_launch_data.tsv
-│   │   └── clean_mission_data.tsv
-│   ├── raw data/
-│   │   └── raw_baseline_launches_Group7.json.zip
-│   └── merged_data.tsv
+│   │   ├── clean_mission_data.tsv
+│   │   └── merged_data.tsv
+│   └── raw data/
+│       └── raw_baseline_launches_Group7.json.zip
 ├── testing notebooks/
 │   └── [various testing notebooks]
 ├── .gitignore
