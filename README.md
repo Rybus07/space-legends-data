@@ -5,11 +5,11 @@ Data acquisition and preprocessing pipeline for collecting historical rocket lau
 
 ## Description
 
-This project acquires and pre-processes detailed historical data on rocket launches by utilizing the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records from 1957 to the present, using code in `01_Acquisition.ipynb`, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member extracted and cleaned a specific subset of parameters, using `02a_Rocket_Extraction.ipynb`, `02b_Launch_Extraction.ipynb`, and `02c_Mission_Extraction.ipynb`, which were then merged into a unified dataset with the `03_Merge.ipynb` (all .ipynb are found in the `Production Code` folder). The final dataset `merged_data.tsv` (located within the `data/cleaned data` folder) is a TSV file that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. For a comprehensive breakdown of all variables, including data types and descriptions, please refer to `data_dictionary.csv` located in the root directory of this repository.
+This project acquires and pre-processes detailed historical data on rocket launches by utilizing the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records from 1957 to the present using code in `01_Acquisition.ipynb`, focusing on three main data categories: rocket specifications, launch information, and mission parameters. Each team member extracted and cleaned a specific subset of parameters, using `02a_Rocket_Extraction.ipynb`, `02b_Launch_Extraction.ipynb`, and `02c_Mission_Extraction.ipynb`, which were then merged into a unified dataset with the `03_Merge.ipynb` (all .ipynb are found in the `Production Code` folder). The final dataset `merged_data.tsv` (located within the `data/cleaned data` folder) is a TSV file that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. For a comprehensive breakdown of all variables, including data types and descriptions, please refer to `data_dictionary.csv` located in the root directory of this repository.
 
 ## Distribution & Access
 
-Our dataset is publicly available on GitHub and available for any interested party to download as a TSV, or to recreate themselves using our acquisition and cleaning code.
+Our dataset is publicly available on GitHub and can be downloaded by any interested party as a TSV or recreated using our acquisition and cleaning code.
 
 ### Data Source Rights
 Our dataset uses the **Launch Library 2 API**, which provides public space launch data for research and educational purposes.
