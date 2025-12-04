@@ -5,7 +5,7 @@ Data acquisition and preprocessing pipeline for collecting historical rocket lau
 
 ## Description
 
-This project acquires and pre-processes detailed historical data on rocket launches by utilizing the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records spanning from 1957 to the present with code found in `01_Acquisition.ipynb`, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member extracted and cleaned a specific subset of parameters, using `02a_Rocket_Extraction.ipynb`, `02b_Launch_Extraction.ipynb`, and `02c_Mission_Extraction.ipynb`, which were then merged into a unified dataset with the `03_Merge.ipynb` (all .ipynb are found in the `Production Code` folder). The final dataset `merged_data.tsv` (located within the `data/cleaned data` folder) is a TSV file that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. For a comprehensive breakdown of all variables, including data types and descriptions, please refer to `data_dictionary.csv` located in the root directory of this repository.
+This project acquires and pre-processes detailed historical data on rocket launches by utilizing the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records from 1957 to the present, using code in `01_Acquisition.ipynb`, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member extracted and cleaned a specific subset of parameters, using `02a_Rocket_Extraction.ipynb`, `02b_Launch_Extraction.ipynb`, and `02c_Mission_Extraction.ipynb`, which were then merged into a unified dataset with the `03_Merge.ipynb` (all .ipynb are found in the `Production Code` folder). The final dataset `merged_data.tsv` (located within the `data/cleaned data` folder) is a TSV file that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. For a comprehensive breakdown of all variables, including data types and descriptions, please refer to `data_dictionary.csv` located in the root directory of this repository.
 
 ## Distribution & Access
 
@@ -46,7 +46,7 @@ Within `data/cleaned data` folder:
 - **clean_launch_data.tsv** - Launch details (16 attributes)
 - **clean_mission_data.tsv** - Mission parameters (10 attributes)
 
-The data_dictionary.csv` (which is located in the root directory of the repository) contains detailed information about each column in `merged_launch_data.tsv`, including data type and units when applicable.
+The `data_dictionary.csv` (located in the root directory of this repository) contains detailed information about each column in `merged_launch_data.tsv`, including data type and units when applicable.
 
 More information, tables, figures, and code to interact with the final dataset are available in `Production Code/03_Merge/ipynb`.
 
@@ -75,7 +75,7 @@ All collection and cleaning code is provided in this repository in the `Producti
 **Note:** Full collection takes ~5-6 hours due to API rate limiting (15 requests/hour, with a maximum of 100 launches/request)
 
 ### Extending the Dataset
-To collect recent launches that may have occured since our last update: 
+To collect recent launches that may have occurred since our last update: 
 
 ```python
 import requests
@@ -103,7 +103,7 @@ new_data = response.json()['results']
   * datetime (built-in)
   * dateutil
   * pprint (built-in)
-* Google Colab or Jupyter Notebook environment; if using Colab, requires Google Drive account for file storage
+* Google Colab or Jupyter Notebook environment; if using Colab, requires a Google Drive account for file storage
 
 ### Installing
 
@@ -123,7 +123,7 @@ from google.colab import drive
 drive.mount('/content/drive')
 ```
 
-4. All code is written to execute locally in-place without rearranging the directory structure. Crucially, each notebook is scripted to load and save data directly to the corresponding `Data/` folder within this repository (using relative paths), rather than a specific local absolute directory. If running in `Google Colab` or if a different directory organization is desired, update code and file pathing as needed.
+4. All code is written to execute locally in-place without rearranging the directory structure. Crucially, each notebook is scripted to load and save data directly to the corresponding `Data/` folder within this repository (using relative paths), rather than a specific local absolute directory. If running in `Google Colab` or if a different directory structure is desired, update the code and file paths as needed.
 ```
 
 ### Executing Program
@@ -176,7 +176,7 @@ space-legends-data/
 ├── README.md
 └── requirements.txt
 ```
-For a detailed breakdown of all variables, data types, and units, please refer to our `data_dictionary.csv`, which is located in the root directory of the repository. 
+For a detailed breakdown of all variables, data types, and units, please refer to our `data_dictionary.csv` located in the root directory of the repository. 
 ```
 ## Challenges, Limitations, and Alternatives
 
@@ -184,15 +184,15 @@ For a detailed breakdown of all variables, data types, and units, please refer t
 The project faced significant hurdles regarding data access. We initially attempted to contact a different API provider but received no response, necessitating a pivot to the Launch Library 2 API. This API imposed a strict rate limit of 15 calls per hour with a maximum of 100 launches per call. This bottleneck required a custom pagination loop with a sleep timer, resulting in a total data acquisition time of approximately 5 to 6 hours. This process is documented in `01_Acquisition.ipynb`. During this long collection window, we also encountered intermittent network timeouts due to connectivity issues, requiring robust error handling in our scripts to ensure the loop could resume without data loss.
 
 ### Data Quality and Formatting
-The final dataset contains null values in 21 out of 39 columns. This was largely due to inconsistent historical records, particularly missing data from early spaceflight launches. Additionally, we found that certain string variables contained commas, which interfered with standard CSV parsing. To resolve this, we adopted the Tab Separated Values (TSV) format for saving our data.
+The final dataset contains null values in 21 out of 39 columns. This was largely due to inconsistent historical records, particularly missing data from early spaceflight launches. Additionally, we found that certain string variables contained commas, which interfered with standard CSV parsing. To resolve this, we adopted the Tab-Separated Values (TSV) format for storing our data.
 
-We also faced challenges with variable specificity. For example, payload mass capability varies significantly depending on the target orbit, meaning a single "payload mass" column was insufficient. We addressed this by combining related variables to create new, more descriptive columns.
+We also faced challenges with variable specificity. For example, payload mass capability varies significantly with the target orbit, so a single "payload mass" column was insufficient. We addressed this by combining related variables to create new, more descriptive columns.
 
 ### Time Constraints and Workflow
-Due to the limited timeline of the project, we were unable to scour additional sources to fill every missing variable. Managing the repository across multiple users also introduced complexity, as we frequently had to resolve merge conflicts within the GitHub repository.
+Due to the project's limited timeline, we were unable to scour additional sources to fill in every missing variable. Managing the repository across multiple users also introduced complexity, as we frequently had to resolve merge conflicts within the GitHub repository.
 
 ### Alternatives Explored
-To address the null values, we explored web scraping data from Wikipedia to supplement the API results. We also utilized the Wikipedia API directly to fill specific null values where possible. However, we ultimately did not merge or include this supplemental data in our final dataset.
+To address missing values, we explored web scraping data from Wikipedia to supplement the API results. We also utilized the Wikipedia API directly to fill specific null values where possible. However, we ultimately did not merge or include this supplemental data in our final dataset.
 
 Regarding the API rate limit, we considered an alternative acquisition strategy: filtering by time rather than simple pagination. This would allow a user to acquire all launches for a single specific year. While we ultimately chose the full pagination method for the final dataset, the code developed for the time-filtering approach is preserved under the Testing Notebooks folder in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`.
 
@@ -200,14 +200,14 @@ Regarding the API rate limit, we considered an alternative acquisition strategy:
 
 **Common Issues:**
 
-* **FileNotFoundError**: Update file paths in notebooks to match your directory structure if different than provided
+* **FileNotFoundError**: Update file paths in notebooks to match your directory structure if different from the provided
 * **API Rate Limiting**: The Space Devs API allows 15 requests/hour. The pagination code includes automatic pausing.
 * **Missing Values After Merge**: Normal - not all launches have complete data in the API
 * **Google Drive Mount Issues**: Re-run the drive.mount() cell in Colab
-* **Google Colab Session Timeout**: Files saved to Colab's temporary storage will be lost after session timeout. Save important files to Google Drive to prevent data loss.
+* **Google Colab Session Timeout**: Files saved to Colab's temporary storage will be lost after the session timeout. Save important files to Google Drive to prevent data loss.
 * **Size of JSON**: Size of the file after full collection (of more than 7,000 launches) is more than 341MB. The file will need to be saved in Google Drive or zipped for GitHub. 
 
-For questions about the project, contact team members (see Authors section).
+For questions about the project, contact team members (see the Authors section).
 
 ## Authors
 
