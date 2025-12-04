@@ -1,0 +1,44 @@
+Variable Name,Data Type,Description,Origin,Units
+ID,UUID,"Unique identifier for each launch record, used as primary key for merging datasets","All datasets, used for merge",none
+Rocket_name,String,Full rocket name,Rocket dataset,none
+Manufacturer_name,String,Name of manufacturer for rocket,Rocket dataset,none
+Manufacturer_country,String,Country in which rocket manufacturer is located,Rocket dataset,none
+Manufacturer_company_description,String,Short description of the manufacturing company,Rocket dataset,none
+Manufacturer_launch_service_count,Integer,Total number of launches by the manufacturer,Rocket dataset,Count
+Rocket_configuration_name,String,Specific configuration of the rocket (e.g. Block 5),Rocket dataset,none
+Rocket_length,Float,Length of the rocket,Rocket dataset,meters (m)
+Rocket_diameter,Float,Diameter of the rocket,Rocket dataset,meters (m)
+Rocket_launch_mass,Float,Launch mass of the rocket,Rocket dataset,tonnes (t)
+Rocket_leo_capacity,Float,Payload capacity to Low Earth Orbit,Rocket dataset,kilograms (kg)
+Rocket_gto_capacity,Float,Payload capacity to Geostationary Transfer Orbit,Rocket dataset,kilograms (kg)
+Rocket_thrust_sea_level,Float,Thrust at sea level,Rocket dataset,kilonewtons (kN)
+Rocket_thrust_vacuum,Float,Thrust in vacuum,Rocket dataset,kilonewtons (kN)
+Rocket_staging,Integer,Number of stages in the rocket,Rocket dataset,Count
+Rocket_fairing_diameter,Float,Diameter of the rocket fairing,Rocket dataset,meters (m)
+Rocket_fairing_height,Float,Height of the rocket fairing,Rocket dataset,meters (m)
+Rocket_maiden_flight,String,Date of the first flight for this rocket configuration,Rocket dataset,Date (YYYY-MM-DD)
+Mission_name,String,Name of the mission,Mission dataset,none
+Mission_description,String,Description of the mission objective,Mission dataset,none
+Mission_type,String,"Category of the mission (e.g. Communications, Resupply)",Mission dataset,none
+Mission_orbit_name,String,Name of the target orbit,Mission dataset,none
+Mission_orbit_abbrev,String,"Abbreviation of the target orbit (e.g. LEO)",Mission dataset,none
+Pad_name,String,Name of the launch pad,Pad dataset,none
+Pad_latitude,Float,Latitude of the launch pad,Pad dataset,Decimal Degrees
+Pad_longitude,Float,Longitude of the launch pad,Pad dataset,Decimal Degrees
+Pad_location_name,String,Full name of the launch location,Pad dataset,none
+Pad_location_country_code,String,ISO country code for the launch location,Pad dataset,ISO Code
+Pad_total_launch_count,Integer,Total launches from this pad,Pad dataset,Count
+Launch_status_name,String,"Current status of the launch (e.g. Success, Failure)",Status dataset,none
+Launch_status_description,String,Description of the status,Status dataset,none
+Launch_net,String,Net launch time (UTC),Launch dataset,ISO 8601 Timestamp
+Launch_window_start,String,Start of launch window,Launch dataset,ISO 8601 Timestamp
+Launch_window_end,String,End of launch window,Launch dataset,ISO 8601 Timestamp
+Launch_probability,Float,Probability of launch success,Launch dataset,Percentage (%)
+Launch_fail_reason,String,Reason for failure if applicable,Launch dataset,none
+Launch_hold_reason,String,Reason for hold if applicable,Launch dataset,none
+Launch_image_url,String,URL for launch image,Launch dataset,URL
+Launch_infographic_url,String,URL for launch infographic,Launch dataset,URL
+Program_name,String,"Name of the space program (e.g. Artemis)",Program dataset,none
+Program_description,String,Description of the space program,Program dataset,none
+Program_agencies_name,String,Agencies involved in the program,Program dataset,none
+Program_start_date,String,Start date of the program,Program dataset,Date (YYYY-MM-DD)
