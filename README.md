@@ -1,10 +1,11 @@
-# Space Launch Data Collection and Processing
+# Collection and Pre-Processing of Global Space Launch Trends (1957-2025)
+## DSCI 511 Term Project
 
 Data acquisition and preprocessing pipeline for collecting historical rocket launch data from the Space Devs [Launch Library 2 API](https://thespacedevs.com/llapi), for DSCI 511 group term project at Drexel University.  
 
 ## Description
 
-This project acquires and pre-processes detailed historical data on rocket launches by utilizing the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records spanning from 1957 to the present with code found in `01_Acquisition.ipynb`, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member extracted and cleaned a specific subset of parameters, using `02a_Rocket_Extraction.ipynb`, `02b_Launch_Extraction.ipynb`, and `02c_Mission_Extraction.ipynb`, which were then merged into a unified dataset with the `03_Merge.ipynb` (all .ipynb are found in the `Production Code` folder). The final dataset `merged_data.tsv` (located within the `data/cleaned data` folder) is a TSV file that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. The data dictionary <mark>(add where this is located when we have it)</mark> specifies more details about each column in the TSV.
+This project acquires and pre-processes detailed historical data on rocket launches by utilizing the Space Devs Launch Library 2 API. The team extracted over 7,300 launch records spanning from 1957 to the present with code found in `01_Acquisition.ipynb`, focusing on three main categories of data: rocket specifications, launch information, and mission parameters. Each team member extracted and cleaned a specific subset of parameters, using `02a_Rocket_Extraction.ipynb`, `02b_Launch_Extraction.ipynb`, and `02c_Mission_Extraction.ipynb`, which were then merged into a unified dataset with the `03_Merge.ipynb` (all .ipynb are found in the `Production Code` folder). The final dataset `merged_data.tsv` (located within the `data/cleaned data` folder) is a TSV file that includes information on launch vehicles, manufacturers, launch sites, mission types, orbits, and launch outcomes, ready for future analysis. For a comprehensive breakdown of all variables, including data types and descriptions, please refer to `data_dictionary.csv` located in the root directory of this repository.
 
 ## Distribution & Access
 
@@ -45,7 +46,7 @@ Within `data/cleaned data` folder:
 - **clean_launch_data.tsv** - Launch details (16 attributes)
 - **clean_mission_data.tsv** - Mission parameters (10 attributes)
 
-The data dictionary <mark>(add location/more detail once this is finished)</mark> contains detailed information about each column in `merged_launch_data.tsv`, including data type and units when applicable.
+The data_dictionary.csv` (which is located in the root directory of the repository) contains detailed information about each column in `merged_launch_data.tsv`, including data type and units when applicable.
 
 More information, tables, figures, and code to interact with the final dataset are available in `Production Code/03_Merge/ipynb`.
 
@@ -122,7 +123,8 @@ from google.colab import drive
 drive.mount('/content/drive')
 ```
 
-4. All code should be able to run locally in-place without rearranging directory structure. If running in Google Colab or if a dfifferent directory organization is desired, update code and file pathing as needed.
+4. All code is written to execute locally in-place without rearranging the directory structure. Crucially, each notebook is scripted to load and save data directly to the corresponding `Data/` folder within this repository (using relative paths), rather than a specific local absolute directory. If running in `Google Colab` or if a different directory organization is desired, update code and file pathing as needed.
+```
 
 ### Executing Program
 
@@ -174,13 +176,25 @@ space-legends-data/
 ├── README.md
 └── requirements.txt
 ```
+For a detailed breakdown of all variables, data types, and units, please refer to our `data_dictionary.csv`, which is located in the root directory of the repository. 
+```
 ## Challenges, Limitations, and Alternatives
 
-The final dataset contains nulls in 21 out of 39 columns; these are items that were missing in the original API calls to Launch Library 2. A potential approach that we explored to filling some of these null values was to web scrape for this information from Wikipedia or the [Next Spaceflight](https://nextspaceflight.com/launches/) website. <mark>(add additional information about what we accomplished here, where to find relevant testing notebooks)</mark>
+### API Limitations and Acquisition Strategy
+The project faced significant hurdles regarding data access. We initially attempted to contact a different API provider but received no response, necessitating a pivot to the Launch Library 2 API. This API imposed a strict rate limit of 15 calls per hour with a maximum of 100 launches per call. This bottleneck required a custom pagination loop with a sleep timer, resulting in a total data acquisition time of approximately 5 to 6 hours. This process is documented in `01_Acquisition.ipynb`. During this long collection window, we also encountered intermittent network timeouts due to connectivity issues, requiring robust error handling in our scripts to ensure the loop could resume without data loss.
 
-An early limitation we faced in this project was the rate limit of 15 calls/hour from the Launch Library 2 API. We ultimately decided to utilize pagination and a sleep timer to acquire the entire dataset over the span of 5-6 hours, as shown in `01_Acquisition.ipynb`. However, we also considered filtering by time to make the API calls, so that the user could, e.g. acquire all the launches for a single year at once. The code developed for this approach can be found under `Testing Notebooks` in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`. <mark>Add anything additional we want to say about filtering/API calls here.</mark>
+### Data Quality and Formatting
+The final dataset contains null values in 21 out of 39 columns. This was largely due to inconsistent historical records, particularly missing data from early spaceflight launches. Additionally, we found that certain string variables contained commas, which interfered with standard CSV parsing. To resolve this, we adopted the Tab Separated Values (TSV) format for saving our data.
 
-<mark>Add any additional challenges/limitations here; make sure to revisit what we thought the dataset development would take as compared to the actual work involved and obstacles encountered</mark>
+We also faced challenges with variable specificity. For example, payload mass capability varies significantly depending on the target orbit, meaning a single "payload mass" column was insufficient. We addressed this by combining related variables to create new, more descriptive columns.
+
+### Time Constraints and Workflow
+Due to the limited timeline of the project, we were unable to scour additional sources to fill every missing variable. Managing the repository across multiple users also introduced complexity, as we frequently had to resolve merge conflicts within the GitHub repository.
+
+### Alternatives Explored
+To address the null values, we explored web scraping data from Wikipedia to supplement the API results. We also utilized the Wikipedia API directly to fill specific null values where possible. However, we ultimately did not merge or include this supplemental data in our final dataset.
+
+Regarding the API rate limit, we considered an alternative acquisition strategy: filtering by time rather than simple pagination. This would allow a user to acquire all launches for a single specific year. While we ultimately chose the full pagination method for the final dataset, the code developed for the time-filtering approach is preserved under the Testing Notebooks folder in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`.
 
 ## Help
 
