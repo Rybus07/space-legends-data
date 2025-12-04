@@ -1,5 +1,5 @@
 Variable Name,Data Type,Description,Origin,Units
-ID,UUID,"Unique identifier for each launch record, used as primary key for merging datasets","All datasets, used for merge",none
+ID,UUID,"Unique identifier for each launch record, used as primary key for merging","All datasets, used for merge",none
 Rocket_name,String,Full rocket name,Rocket dataset,none
 Manufacturer_name,String,Name of manufacturer for rocket,Rocket dataset,none
 Manufacturer_country,String,Country in which rocket manufacturer is located,Rocket dataset,none
