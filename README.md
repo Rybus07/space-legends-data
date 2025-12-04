@@ -133,7 +133,7 @@ The project consists of three main phases:
 * Set TEST_MODE flag to False for full collection (5-6 hours due to rate limiting)
 * Run notebook to collect raw launch data from API
 * Note: Space Devs Launch Library 2 API does not require an API key
-* Output: `raw_baseline_launches_Group7.json` saved to `data/` folder
+* Output: `raw_baseline_launches_Group7.json` saved to `data/raw data` folder
 
 **Phase 2: Data Cleaning**
 * Open cleaning notebooks in `Production Code` folder:
@@ -145,7 +145,7 @@ The project consists of three main phases:
 
 **Phase 3: Data Merging**
 * In `Production Code` folder, run `03_Merge.ipynb` to combine all cleaned data
-* Output: `merged_data.tsv` saved to `data/cleaned` folder - Final dataset ready for analysis
+* Output: `merged_data.tsv` saved to `data/cleaned data` folder - Final dataset ready for analysis
 
 ### **4. GitHub File Structure:**
 ```
