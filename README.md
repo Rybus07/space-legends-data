@@ -160,8 +160,7 @@ space-legends-data/
 │   └── 03_Merge.ipynb
 ├── Project materials/
 │   ├── Presentation.pdf
-│   ├── Project_Proposal.ipynb
-│   └── Data_Dictionary
+│   └── Project_Proposal.ipynb
 ├── data/
 │   ├── cleaned data/
 │   │   ├── clean_rocket_data.tsv
@@ -173,6 +172,7 @@ space-legends-data/
 ├── testing notebooks/
 │   └── [various testing notebooks]
 ├── .gitignore
+├── data_dictionary.csv
 ├── README.md
 └── requirements.txt
 ```
