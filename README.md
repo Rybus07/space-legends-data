@@ -129,7 +129,7 @@ drive.mount('/content/drive')
 ```
 
 4. All code is written to execute locally in-place without rearranging the directory structure. Crucially, each notebook is scripted to load and save data directly to the corresponding `Data/` folder within this repository (using relative paths), rather than a specific local absolute directory. If running in `Google Colab` or if a different directory structure is desired, update the code and file paths as needed.
-```
+
 
 ### Executing Program
 
@@ -183,7 +183,7 @@ space-legends-data/
 └── requirements.txt
 ```
 For a detailed breakdown of all variables, data types, and units, please refer to our `data_dictionary.csv` located in the root directory of the repository. 
-```
+
 ## Challenges, Limitations, and Alternatives
 
 ### API Limitations and Acquisition Strategy
