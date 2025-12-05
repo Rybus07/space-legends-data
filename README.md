@@ -46,6 +46,11 @@ Within `data/cleaned data` folder:
 - **clean_launch_data.tsv** - Launch details (16 attributes)
 - **clean_mission_data.tsv** - Mission parameters (10 attributes)
 
+Within `data/raw data` folder:
+
+- **raw_baseline_launches_Group7.json.zip** - The complete dataset containing all collected launches. The notebook automatically compresses the raw JSON into this ZIP archive to comply with GitHub file size limits.
+- **raw_baseline_launches_Group7_TEST.json.zip** - A smaller sample dataset (1,200 launches) generated when `01_Acquisition.ipynb` is run in `TEST_MODE`.
+
 The `data_dictionary.csv` (located in the root directory of this repository) contains detailed information about each column in `merged_launch_data.tsv`, including data type and units when applicable.
 
 More information, tables, figures, and code to interact with the final dataset are available in `Production Code/03_Merge/ipynb`.
@@ -132,10 +137,10 @@ The project consists of three main phases:
 
 **Phase 1: Data Collection**
 * Open `01_Acquisition.ipynb` in `Production Code` folder
-* Set TEST_MODE flag to False for full collection (5-6 hours due to rate limiting)
+* Set TEST_MODE flag to `False` for full collection (5-6 hours due to rate limiting) or `True` for a quick validation run (~8 mins).
 * Run notebook to collect raw launch data from API
-* Note: Space Devs Launch Library 2 API does not require an API key
-* Output: `raw_baseline_launches_Group7.json` saved to `data/raw data` folder
+* **Note:** The script now automatically handles directory creation (making it Google Colab compatible) and compresses the output to ZIP format.
+* Output: `raw_baseline_launches_Group7.json.zip` (or `..._TEST.json.zip`) saved to `data/raw data` folder
 
 **Phase 2: Data Cleaning**
 * Open cleaning notebooks in `Production Code` folder:
@@ -168,7 +173,8 @@ space-legends-data/
 │   │   ├── clean_mission_data.tsv
 │   │   └── merged_data.tsv
 │   └── raw data/
-│       └── raw_baseline_launches_Group7.json.zip
+│       ├── raw_baseline_launches_Group7.json.zip
+│       └── raw_baseline_launches_Group7_TEST.json.zip
 ├── testing notebooks/
 │   └── [various testing notebooks]
 ├── .gitignore
@@ -205,7 +211,7 @@ Regarding the API rate limit, we considered an alternative acquisition strategy:
 * **Missing Values After Merge**: Normal - not all launches have complete data in the API
 * **Google Drive Mount Issues**: Re-run the drive.mount() cell in Colab
 * **Google Colab Session Timeout**: Files saved to Colab's temporary storage will be lost after the session timeout. Save important files to Google Drive to prevent data loss.
-* **Size of JSON**: Size of the file after full collection (of more than 7,000 launches) is more than 341MB. The file will need to be saved in Google Drive or zipped for GitHub. 
+* **Size of JSON**: The full collection JSON exceeds 340MB. The acquisition script now automatically compresses this into a `.zip` archive (~30MB) so it can be safely committed to GitHub without hitting file size limits.
 
 For questions about the project, contact team members (see the Authors section).
 
