@@ -99,7 +99,7 @@ new_data = response.json()['results']
 ## Getting Started
 
 ### Dependencies
-
+Reference `requirements.txt` in the root directory
 * Python 3.8 or higher
 * Required Python packages:
   * pandas
@@ -117,10 +117,7 @@ new_data = response.json()['results']
 git clone https://github.com/Rybus07/space-legends-data.git
 ```
 
-2. Install required packages (if running locally):
-```
-pip install pandas requests python-dateutil
-```
+2. Install required packages (if running locally) by referencing `requirements.txt` in the root directory
 
 3. If using Google Colab, mount your Google Drive:
 ```python
@@ -198,18 +195,18 @@ We also faced challenges with variable specificity. For example, payload mass ca
 Due to the project's limited timeline, we were unable to scour additional sources to fill in every missing variable. Managing the repository across multiple users also introduced complexity, as we frequently had to resolve merge conflicts within the GitHub repository.
 
 ### Alternatives Explored
-To address missing values, we explored web scraping data from Wikipedia to supplement the API results. We also utilized the Wikipedia API directly to fill specific null values where possible. However, we ultimately did not merge or include this supplemental data in our final dataset.
+To address missing values, we explored web scraping data from Wikipedia to supplement the API results. We considered utilizing the Wikipedia API directly to fill specific null values where possible. While we ultimately did not merge or include this supplemental data in our final dataset, this remains as a potential future direction.
 
-Regarding the API rate limit, we considered an alternative acquisition strategy: filtering by time rather than simple pagination. This would allow a user to acquire all launches for a single specific year. While we ultimately chose the full pagination method for the final dataset, the code developed for the time-filtering approach is preserved under the Testing Notebooks folder in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`.
+Regarding the API rate limit, we considered an alternative acquisition strategy: filtering by time rather than simple pagination. This would allow a user to acquire all launches for a single specific year. While we ultimately chose the full pagination method for the final dataset, the code developed for the time-filtering approach is preserved under the `testing notebooks/API Calls` folder in `API call by year - test 1.ipynb` and `API test for 5 years data Interval.ipynb`.
 
 ## Help
 
 **Common Issues:**
 
-* **FileNotFoundError**: Update file paths in notebooks to match your directory structure if different from the provided
+* **FileNotFoundError**: Update file paths in notebooks to match your directory structure if different from the provided.
 * **API Rate Limiting**: The Space Devs API allows 15 requests/hour. The pagination code includes automatic pausing.
-* **Missing Values After Merge**: Normal - not all launches have complete data in the API
-* **Google Drive Mount Issues**: Re-run the drive.mount() cell in Colab
+* **Missing Values After Merge**: Normal - not all launches have complete data in the API.
+* **Google Drive Mount Issues**: Re-run the drive.mount() cell in Colab.
 * **Google Colab Session Timeout**: Files saved to Colab's temporary storage will be lost after the session timeout. Save important files to Google Drive to prevent data loss.
 * **Size of JSON**: The full collection JSON exceeds 340MB. The acquisition script now automatically compresses this into a `.zip` archive (~30MB) so it can be safely committed to GitHub without hitting file size limits.
 
