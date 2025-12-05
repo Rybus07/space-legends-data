@@ -21,12 +21,17 @@ Our dataset uses the **Launch Library 2 API**, which provides public space launc
 
 ### How to Use This Dataset
 
-**Load the data:**
+**Option 1: Run the Notebooks (Recommended)**
+Our notebooks (`02a`, `02b`, `02c`, `03`) include a **Hybrid Loading System**. They will automatically:
+1.  Check your local machine for the data.
+2.  If missing, stream the data directly from GitHub.
+*This means you can run our analysis in Google Colab without manually uploading any files.*
 
-Adjust file pathing as appropriate for your workflow; for all code included in this repository, no adjustments to file pathing should be required.
-
+**Option 2: Manual Loading**
+If you wish to use the data in your own separate script:
 ```python
 import pandas as pd
+# Load the final merged dataset
 df = pd.read_csv('data/cleaned data/merged_data.tsv', sep='\t')
 ```
 
@@ -124,8 +129,8 @@ The project consists of three main phases:
 * Open `01_Acquisition.ipynb` in `Production Code` folder
 * Set TEST_MODE flag to `False` for full collection (5-6 hours due to rate limiting) or `True` for a quick validation run (~8 mins).
 * Run notebook to collect raw launch data from API
-* **Note:** The script now automatically handles directory creation (making it Google Colab compatible) and compresses the output to ZIP format.
-* Output: `raw_baseline_launches_Group7.json.zip` (or `..._TEST.json.zip`) saved to `data/raw data` folder
+* **Note:** The script automatically handles directory creation and file compression. It is fully compatible with Google Colab.
+* Output: `raw_baseline_launches_Group7.json.zip` (Production) or `..._TEST.json.zip` (Test Mode).
 
 **Phase 2: Data Cleaning**
 * Open cleaning notebooks in `Production Code` folder:
@@ -133,7 +138,7 @@ The project consists of three main phases:
   * `02b_Launch_Extraction.ipynb` - Extracts launch parameters
   * `02c_Mission_Extraction.ipynb` - Extracts mission parameters
 * Run each notebook to generate cleaned parameter files
-* Output: Three TSV files (`clean_rocket_data.tsv`, `clean_launch_data.tsv`, `clean_mission_data.tsv`) saved to `data/cleaned data` folder
+* **Note:** All cleaning notebooks feature **Hybrid Data Loading**. They will automatically download the raw data from GitHub if run in a cloud environment (Colab).
 
 **Phase 3: Data Merging**
 * In `Production Code` folder, run `03_Merge.ipynb` to combine all cleaned data
@@ -191,10 +196,10 @@ Regarding the API rate limit, we considered an alternative acquisition strategy:
 
 **Common Issues:**
 
-* **FileNotFoundError**: Update file paths in notebooks to match your directory structure if different from the provided.
+* **FileNotFoundError**: Our notebooks now use **Robust Directory Creation** to automatically build missing folders. If you see this error, ensure you are running the latest version of the code.
+* **Google Drive Mount Issues**: You **do not** need to mount Google Drive to run our notebooks. The Hybrid Loading system streams data directly from the repository.
 * **API Rate Limiting**: The Space Devs API allows 15 requests/hour. The pagination code includes automatic pausing.
 * **Missing Values After Merge**: Normal - not all launches have complete data in the API.
-* **Google Drive Mount Issues**: Re-run the drive.mount() cell in Colab.
 * **Google Colab Session Timeout**: Files saved to Colab's temporary storage will be lost after the session timeout. Save important files to Google Drive to prevent data loss.
 * **Size of JSON**: The full collection JSON exceeds 340MB. The acquisition script now automatically compresses this into a `.zip` archive (~30MB) so it can be safely committed to GitHub without hitting file size limits.
 
@@ -229,3 +234,4 @@ Data sourced from [The Space Devs Launch Library 2 API](https://thespacedevs.com
 * [Space Devs API Documentation](https://ll.thespacedevs.com/docs/)
 * [Stack Overflow pagination example](https://stackoverflow.com/questions/56206038/how-to-loop-through-paginated-api-using-python)
 * DSCI 511 course materials and instructor and TAs
+* Python standard libraries (`zipfile`, `io`, `os`) for enabling cloud-compatible data streaming.
