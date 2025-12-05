@@ -234,4 +234,6 @@ Data sourced from [The Space Devs Launch Library 2 API](https://thespacedevs.com
 * [Space Devs API Documentation](https://ll.thespacedevs.com/docs/)
 * [Stack Overflow pagination example](https://stackoverflow.com/questions/56206038/how-to-loop-through-paginated-api-using-python)
 * DSCI 511 course materials and instructor and TAs
-* Python standard libraries (`zipfile`, `io`, `os`) for enabling cloud-compatible data streaming.
+* Python standard libraries (`zipfile`, `io`, `os`) for enabling cloud-compatible data streaming
+* [DataScientyst Guide](https://datascientyst.com/how-to-read-csv-directly-from-a-url-in-pandas-and-requests/) - Tutorial on reading CSV files from URLs using Pandas and Requests
+* [Requests Documentation](https://requests.readthedocs.io/en/latest/user/quickstart/) - Official quickstart guide to stream data from URL
