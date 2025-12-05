@@ -1,4 +1,4 @@
-# Collection and Pre-Processing of Global Space Launch Trends (1957-2025)
+# Collection and Pre-Processing of Global Space Launch Data (1957-2025)
 ## DSCI 511 Term Project
 
 Data acquisition and preprocessing pipeline for collecting historical rocket launch data from the Space Devs [Launch Library 2 API](https://thespacedevs.com/llapi), for DSCI 511 group term project at Drexel University.  
@@ -78,18 +78,6 @@ All collection and cleaning code is provided in this repository in the `Producti
 4. Run `03_Merge.ipynb` to integrate
 
 **Note:** Full collection takes ~5-6 hours due to API rate limiting (15 requests/hour, with a maximum of 100 launches/request)
-
-### Extending the Dataset
-To collect recent launches that may have occurred since our last update: 
-
-```python
-import requests
-
-# Get 100 latest launches
-url = "https://ll.thespacedevs.com/2.2.0/launch/?limit=100"
-response = requests.get(url)
-new_data = response.json()['results']
-```
 
 ### Data Quality
 - Historical launches (pre-2000s) have incomplete technical specifications
